@@ -72,14 +72,14 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "netcoreapp3.0"
+          "netcoreapp2.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "netcoreapp3.0": {
+          "netcoreapp2.0": {
             "projectReferences": {
               "C:\\Users\\mussi\\source\\repos\\MathService\\MathService\\MathService.fsproj": {
                 "projectPath": "C:\\Users\\mussi\\source\\repos\\MathService\\MathService\\MathService.fsproj"
@@ -89,7 +89,7 @@
         }
       },
       "frameworks": {
-        "netcoreapp3.0": {
+        "netcoreapp2.0": {
           "dependencies": {
             "FSharp.Core": {
               "target": "Package",
@@ -98,6 +98,12 @@
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
               "version": "[16.2.0, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.0, )",
+              "autoReferenced": true
             },
             "NUnit3TestAdapter": {
               "target": "Package",
@@ -118,11 +124,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
           "runtimeIdentifierGraphPath": "C:\\Program Files (x86)\\dotnet\\sdk\\3.0.101\\RuntimeIdentifierGraph.json"
         }
       }
