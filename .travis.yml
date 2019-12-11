@@ -1,11 +1,16 @@
 language: csharp
-mono: none
+dist: trusty
+sudo: true
 dotnet: 2.0.0
 
 install:
   - mono .paket/paket.bootstrapper.exe
   - mono .paket/paket.exe restore
   - msbuild /t:restore
+
+os:
+  - linux
+  - osx
 
 script:
 - dotnet build
@@ -15,3 +20,10 @@ branches:
   - msbuild /property:Configuration=Release FSharp.Compatibility.sln
   - master
   - development
+
+#  - nightly
+
+install:
+
+allow_failures:
+  - mono: nightly
