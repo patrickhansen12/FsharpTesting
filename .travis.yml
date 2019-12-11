@@ -1,29 +1,8 @@
 language: csharp
-dist: trusty
-sudo: true
-dotnet: 2.0.0
-
+solution: solution-name.sln
 install:
-  - mono .paket/paket.bootstrapper.exe
-  - mono .paket/paket.exe restore
-  - msbuild /t:restore
-
-os:
-  - linux
-  - osx
-
+  - nuget restore MathService.sln
+  - nuget install NUnit.Console -Version 3.9.0 -OutputDirectory testrunner
 script:
-- dotnet build
-- dotnet test --no-build --configuration Release NUnitTestProject1/NUnitTestProject1.csproj
-branches:
-  only:
-  - msbuild /property:Configuration=Release FSharp.Compatibility.sln
-  - master
-  - development
-
-#  - nightly
-
-install:
-
-allow_failures:
-  - mono: nightly
+  - msbuild /p:Configuration=Release MathService.sln
+  - mono ./testrunner/NUnit.ConsoleRunner.3.9.0/tools/nunit3-console.exe ./NUnitTestProject1/NUnitTestProject1.csproj
