@@ -1,13 +1,17 @@
-language: fsharp
+language: csharp
 mono: none
 dotnet: 2.0.0
-dist: trusty
+
 install:
-- dotnet restore
+  - mono .paket/paket.bootstrapper.exe
+  - mono .paket/paket.exe restore
+  - msbuild /t:restore
+
 script:
 - dotnet build
-- dotnet test NUnitTestProject1/NUnitTestProject1.csproj
+- dotnet test --no-build --configuration Release NUnitTestProject1/NUnitTestProject1.csproj
 branches:
   only:
+  - msbuild /property:Configuration=Release FSharp.Compatibility.sln
   - master
   - development
