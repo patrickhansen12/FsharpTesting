@@ -1,8 +1,9 @@
 language: csharp
-solution: solution-name.sln
+mono: none
+dotnet: 2.0.0
+dist: trusty
 install:
-  - nuget restore MathService.sln
-  - nuget install NUnit.Console -Version 3.9.0 -OutputDirectory testrunner
+- dotnet restore
 script:
-  - msbuild /p:Configuration=Release MathService.sln
-  - mono ./testrunner/NUnit.ConsoleRunner.3.9.0/tools/nunit3-console.exe NUnitTestProject1/NUnitTestProject1.csproj
+- dotnet build
+- dotnet test NUnitTestProject1/NUnitTestProject1.csproj
