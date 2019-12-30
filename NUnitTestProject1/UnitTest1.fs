@@ -26,7 +26,7 @@ let ``My test`` () =
 [<Test>]
 let ``Sequence of Evens returns empty collection`` () =
     let expected = Seq.empty<int>
-    let actual = MyMath.squaresOfOdds [1; 3; 5; 7; 9]
+    let actual = MyMath.squaresOfOdds [2; 4; 6; 8; 10]
     Assert.That(actual, Is.EqualTo(expected))
 
 [<Test>]
