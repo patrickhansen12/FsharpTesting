@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="SalaryCalculator.fs" />
     <Compile Include="MoqTests.fs" />
     <Compile Include="FoqTests.fs" />
     <Compile Include="Program.fs" />

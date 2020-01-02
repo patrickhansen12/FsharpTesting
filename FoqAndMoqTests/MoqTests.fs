@@ -1,6 +1,6 @@
 // Getting started with thee Moq.FSharp.Extensions:
 // Moq uses .Net LINQ Expressions for setting up properties and methods.
-// F# 3 inside Visual Studio 2012 & Xamarin Studio 4 supports .Net LINQ Expressions.
+// F# 3 inside Visual Stud io 2012 & Xamarin Studio 4 supports .Net LINQ Expressions.
 // This means you can use Moq directly from F#.
 // The Moq.FSharp.Extensions add a few extension methods & functions to make things a little smoother.
 // Use .SetupFunc & .SetupAction over .Setup to avoid specifying additional type information.
@@ -8,16 +8,8 @@
 // Leverage F#'s type inference and use any() over It.IsAny<_>() for readability.
 // That's it!
 
-#if INTERACTIVE
-#r @"..\packages\Moq.4.0.10827\lib\NET40\Moq.dll"
-#load "Moq.FSharp.Extensions.fs"
-type TestAttribute() = inherit System.Attribute ()
-module Assert =
-    let That success = if not success then failwith "Failed"
-#else
-module Tests
+module Moqtests
 open NUnit.Framework
-#endif
 
 open Moq
 open Moq.FSharp.Extensions
@@ -30,14 +22,15 @@ type IFoo =
 /// Mock DoSomething method using vanilla Moq
 let [<Test>] ``mock a method that returns a value`` () =
     let mock = Mock<IFoo>()
-    mock.Setup<bool>(fun foo -> foo.DoSomething("ping")).Returns(true) |> ignore
-    Assert.That(mock.Object.DoSomething("ping"))
+    mock.Setup<bool>(fun foo -> foo.DoSomething("Simple String Moq")).Returns(true) |> ignore
+    Assert.That(mock.Object.DoSomething("Simple String Moq"))
     
+
 /// Mock DoSomething method using Moq.FSharp.Extensions
 let [<Test>] ``mock a method that returns a value without using a type annotation`` () =
     let mock = Mock<IFoo>()
-    mock.SetupFunc(fun foo -> foo.DoSomething("ping")).Returns(true).End
-    Assert.That(mock.Object.DoSomething("ping"))  
+    mock.SetupFunc(fun foo -> foo.DoSomething("Simple String Moq extension")).Returns(true).End
+    Assert.That(mock.Object.DoSomething("Simple String Moq extension"))  
     
 /// Mock Value property getter using Moq.FSharp.Extensions
 let [<Test>] ``mock a property getter`` () =
@@ -65,21 +58,4 @@ let [<Test>] ``mock a property setter without using a type annotation`` () =
 
 open System.ComponentModel
 
-/// Mock PropertyChanged event using vanilla Moq
-/// Note use of PropertyChanged.AddHandler(null)
-let [<Test>] ``mock raising an event`` () =
-    let mock = Mock<INotifyPropertyChanged>()
-    let changed = ref false
-    mock.Object.PropertyChanged.Add(fun x -> changed := true) 
-    mock.RaiseHandler((fun x -> x.PropertyChanged.AddHandler(null)), 
-               PropertyChangedEventArgs("Hello"))
-    Assert.That(changed.Value)
 
-#if INTERACTIVE
-``mock a method that returns a value`` ()
-``mock a method that returns a value without using a type annotation`` ()
-``mock a property getter`` ()
-``mock a property setter`` ()
-``mock a property setter without using a type annotation`` ()
-``mock raising an event`` ()
-#endif
